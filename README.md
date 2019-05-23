@@ -1,2 +1,2 @@
 # CR-Project
-Sort number by number of bits to 1
+Sort number by number consecutive of bits to 1
