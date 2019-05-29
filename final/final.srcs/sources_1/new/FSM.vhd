@@ -11,14 +11,14 @@ entity FSM is -- interface is the same as in the previous code
 end entity FSM;
 
 architecture Behavioral of FSM is
-	type state_type is (initial_state, counting, completed); 	
+	type state_type is (initial_state, counting, toRam,completed); 	
 	signal C_S, N_S : state_type;
 	type data is array (15 downto 0) of std_logic_vector(7 downto 0);
 	signal MyAr, N_MyAr : data; -- signals can be used here instead of variables
 	signal sorting_completed, N_sorting_completed : std_logic;
 	signal min,temp: std_logic_vector(7 downto 0);
 	signal minNr1,tempNr1: integer;
-	signal index,indexMin: integer;
+	signal index,indexMin,cnt: integer;
 	signal sendOut: std_logic_vector(7 downto 0);
 begin
 
@@ -31,6 +31,7 @@ begin
 			minNr1              <= 0;
 			temp                <= "00000000";
 			tempNr1              <= 0;
+			cnt                  <= 0;
 			MyAr 				<= (others => (others => '0'));
 		else
 			C_S 				<= N_S;
@@ -54,33 +55,37 @@ begin
 				N_MyAr(i) <= data_in1(8 * (i + 1)-1 downto 8 * i);
 			end loop;
 			
-	when counting => 
-		if (sorting_completed = '0') then 
+	when counting => 	
+            cnt <= cnt+1;
             min <= N_MyAr(0);
-			indexMin <= 0;
-			for i in 7 downto 0 loop
-			    if min(i) = '1' then
-			         minNr1 <= minNr1 + 1;
-			     end if;
-			end loop;
+            indexMin <= 0;
+            for i in 7 downto 0 loop
+                if min(i) = '1' then
+                     minNr1 <= minNr1 + 1;
+                 end if;
+            end loop;
             
             for j in 14 downto 0 loop
                temp <= N_MyAr(j+1); 
                for k in 7 downto 0 loop
-			     if temp(k) = '1' then
-			         tempNr1 <= tempNr1 + 1;
-			     end if;
-			     if tempNr1 < minNr1 then
-			         minNr1 <= tempNr1;
-			         min <= temp;
-			         indexMin <= j;
-			     end if;
-			   end loop;
+                 if temp(k) = '1' then
+                     tempNr1 <= tempNr1 + 1;
+                 end if;
+                 if tempNr1 < minNr1 then
+                     minNr1 <= tempNr1;
+                     min <= temp;
+                     indexMin <= j;
+                 end if;
+               end loop;
             end loop;
-		
-		else 
-			N_S <= completed; -- no swapping and the current iteration is the last
-		end if;
+	   if cnt = 15 then
+	       N_S <= completed;
+	   else
+	       N_S <= completed;
+	   end if;
+	when toRam =>
+	   data_out <= min;
+	   N_S <= counting;
 	when completed => 
 		N_S <= completed;
 	when others => 
@@ -88,11 +93,4 @@ begin
 	end case;
 end process;
 
-process (MyAr,addr)
-begin
-	index <= 2**to_integer(unsigned(addr));
-	sendOut <= MyAr(index);
-end process;
-
-data_out <= sendOut;
 end Behavioral;
