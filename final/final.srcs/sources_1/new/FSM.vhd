@@ -2,9 +2,8 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity FSM is -- interface is the same as in the previous code 
+entity FSM is 
 	port (		clk			: in std_logic; 
-				addr        : in std_logic_vector(3-1 downto 0);
 				reset		: in std_logic;
 				data_in1 	: in std_logic_vector(127 downto 0);
 				data_out	: out std_logic_vector(7 downto 0));
@@ -14,8 +13,7 @@ architecture Behavioral of FSM is
 	type state_type is (initial_state, counting, toRam,completed); 	
 	signal C_S, N_S : state_type;
 	type data is array (15 downto 0) of std_logic_vector(7 downto 0);
-	signal MyAr, N_MyAr : data; -- signals can be used here instead of variables
-	signal sorting_completed, N_sorting_completed : std_logic;
+	signal MyAr, N_MyAr : data; 
 	signal min,temp: std_logic_vector(7 downto 0);
 	signal minNr1,tempNr1: integer;
 	signal index,indexMin,cnt: integer;
@@ -36,22 +34,17 @@ begin
 		else
 			C_S 				<= N_S;
 			MyAr				<= N_MyAr;
-
-			sorting_completed	<= N_sorting_completed; 	
-
 		end if;
 	end if;
 end process;
 
-process (C_S, data_in1, sorting_completed, MyAr) 
+process (C_S, data_in1, MyAr) 
 begin
 	N_S					<= C_S;
 	N_MyAr				<= MyAr;
-	N_sorting_completed	<= sorting_completed;	
 	case C_S is
-		when initial_state => -- initialization of signals and variables in the initial state
-			N_sorting_completed <= '0'; 
-			for i in 7 downto 0 loop -- getting individual items from the input vector
+		when initial_state => 
+			for i in 7 downto 0 loop 
 				N_MyAr(i) <= data_in1(8 * (i + 1)-1 downto 8 * i);
 			end loop;
 			
@@ -74,15 +67,19 @@ begin
                  if tempNr1 < minNr1 then
                      minNr1 <= tempNr1;
                      min <= temp;
-                     indexMin <= j;
+                     indexMin <= j+1;
                  end if;
                end loop;
             end loop;
+            
+	   N_MyAr(indexMin) <= "00000000"; 
+	   
 	   if cnt = 15 then
 	       N_S <= completed;
 	   else
-	       N_S <= completed;
+	       N_S <= toRam;
 	   end if;
+	
 	when toRam =>
 	   data_out <= min;
 	   N_S <= counting;
