@@ -1,2 +1,0 @@
-blk_mem_gen_1.v,verilog,work,../../../../final.srcs/sources_1/ip/blk_mem_gen_1/sim/blk_mem_gen_1.v,
-glbl.v,Verilog,work,glbl.v

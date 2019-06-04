@@ -1,0 +1,93 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
+| Date         : Wed Jun  5 00:35:20 2019
+| Host         : LAPTOP-583710C4 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file TOP_control_sets_placed.rpt
+| Design       : TOP
+| Device       : xc7a100t
+------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Number of unique control sets                            |    24 |
+| Unused register locations in slices containing registers |    92 |
++----------------------------------------------------------+-------+
+
+
+2. Histogram
+------------
+
++--------+--------------+
+| Fanout | Control Sets |
++--------+--------------+
+|      4 |            1 |
+|      5 |            2 |
+|      7 |            1 |
+|     12 |           16 |
+|     15 |            1 |
+|    16+ |            3 |
++--------+--------------+
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              18 |            6 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |              26 |           12 |
+| Yes          | No                    | No                     |              20 |            6 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             228 |          103 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------+------------------------------------+------------------+------------------+----------------+
+|  Clock Signal  |            Enable Signal           | Set/Reset Signal | Slice Load Count | Bel Load Count |
++----------------+------------------------------------+------------------+------------------+----------------+
+|  clk_IBUF_BUFG | sort/CurrentMax[3]_i_1_n_0         | btnC_IBUF        |                1 |              4 |
+|  clk_IBUF_BUFG | sort/PalavraNum[4]_i_1_n_0         | btnC_IBUF        |                1 |              5 |
+|  clk_IBUF_BUFG | BCD_disp/conv/index_c[4]_i_1_n_0   |                  |                2 |              5 |
+|  clk_IBUF_BUFG | sort/CurrentOne[3]_i_1_n_0         | btnC_IBUF        |                3 |              7 |
+|  clk_IBUF_BUFG | sort/order1[12][11]_i_1_n_0        | btnC_IBUF        |                4 |             12 |
+|  clk_IBUF_BUFG | sort/order1[13][11]_i_1_n_0        | btnC_IBUF        |                5 |             12 |
+|  clk_IBUF_BUFG | sort/order1[14][11]_i_1_n_0        | btnC_IBUF        |                6 |             12 |
+|  clk_IBUF_BUFG | sort/order1[10][11]_i_1_n_0        | btnC_IBUF        |                4 |             12 |
+|  clk_IBUF_BUFG | sort/order1[11][11]_i_1_n_0        | btnC_IBUF        |                4 |             12 |
+|  clk_IBUF_BUFG | sort/order1[0][11]_i_1_n_0         | btnC_IBUF        |                5 |             12 |
+|  clk_IBUF_BUFG | sort/order1[3][11]_i_1_n_0         | btnC_IBUF        |                7 |             12 |
+|  clk_IBUF_BUFG | sort/order1[2][11]_i_1_n_0         | btnC_IBUF        |                7 |             12 |
+|  clk_IBUF_BUFG | sort/order1[8][11]_i_1_n_0         | btnC_IBUF        |                5 |             12 |
+|  clk_IBUF_BUFG | sort/order1[5][11]_i_1_n_0         | btnC_IBUF        |                7 |             12 |
+|  clk_IBUF_BUFG | sort/order1[6][11]_i_1_n_0         | btnC_IBUF        |                5 |             12 |
+|  clk_IBUF_BUFG | sort/order1[4][11]_i_1_n_0         | btnC_IBUF        |                8 |             12 |
+|  clk_IBUF_BUFG | sort/order1[9][11]_i_1_n_0         | btnC_IBUF        |                8 |             12 |
+|  clk_IBUF_BUFG | sort/order1[1][11]_i_1_n_0         | btnC_IBUF        |                6 |             12 |
+|  clk_IBUF_BUFG | sort/order1[7][11]_i_1_n_0         | btnC_IBUF        |                7 |             12 |
+|  clk_IBUF_BUFG | sort/order1[15][11]_i_1_n_0        | btnC_IBUF        |                4 |             12 |
+|  clk_IBUF_BUFG | BCD_disp/conv/int_rg_c[15]_i_1_n_0 |                  |                4 |             15 |
+|  clk_IBUF_BUFG |                                    |                  |                6 |             18 |
+|  clk_IBUF_BUFG | BCD_disp/conv/get_outputs          | btnC_IBUF        |                6 |             20 |
+|  clk_IBUF_BUFG |                                    | btnC_IBUF        |               12 |             26 |
++----------------+------------------------------------+------------------+------------------+----------------+
+
+
