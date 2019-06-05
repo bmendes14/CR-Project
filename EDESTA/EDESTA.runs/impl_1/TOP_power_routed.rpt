@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-| Date             : Wed Jun  5 00:36:28 2019
+| Date             : Wed Jun  5 01:03:07 2019
 | Host             : LAPTOP-583710C4 running 64-bit major release  (build 9200)
 | Command          : report_power -file TOP_power_routed.rpt -pb TOP_power_summary_routed.pb -rpx TOP_power_routed.rpx
 | Design           : TOP
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.105        |
+| Total On-Chip Power (W)  | 0.109        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.008        |
+| Dynamic (W)              | 0.012        |
 | Device Static (W)        | 0.097        |
 | Effective TJA (C/W)      | 4.6          |
 | Max Ambient (C)          | 84.5         |
@@ -53,16 +53,17 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.002 |        3 |       --- |             --- |
-| Slice Logic    |    <0.001 |      737 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      368 |     63400 |            0.58 |
-|   Register     |    <0.001 |      292 |    126800 |            0.23 |
+| Slice Logic    |     0.002 |     1019 |       --- |             --- |
+|   LUT as Logic |     0.002 |      528 |     63400 |            0.83 |
+|   Register     |    <0.001 |      426 |    126800 |            0.34 |
 |   CARRY4       |    <0.001 |        5 |     15850 |            0.03 |
-|   F7/F8 Muxes  |    <0.001 |       17 |     63400 |            0.03 |
-|   Others       |     0.000 |        5 |       --- |             --- |
-| Signals        |    <0.001 |      466 |       --- |             --- |
-| I/O            |     0.006 |       21 |       210 |           10.00 |
+|   F7/F8 Muxes  |    <0.001 |        1 |     63400 |           <0.01 |
+|   Others       |     0.000 |        9 |       --- |             --- |
+| Signals        |     0.002 |      792 |       --- |             --- |
+| Block RAM      |     0.002 |      0.5 |       135 |            0.37 |
+| I/O            |     0.005 |       21 |       210 |           10.00 |
 | Static Power   |     0.097 |          |           |                 |
-| Total          |     0.105 |          |           |                 |
+| Total          |     0.109 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -72,9 +73,9 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.018 |       0.003 |      0.015 |
+| Vccint    |       1.000 |     0.023 |       0.008 |      0.015 |
 | Vccaux    |       1.800 |     0.018 |       0.000 |      0.018 |
-| Vcco33    |       3.300 |     0.006 |       0.002 |      0.004 |
+| Vcco33    |       3.300 |     0.005 |       0.001 |      0.004 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |
@@ -138,11 +139,15 @@ Table of Contents
 3.1 By Hierarchy
 ----------------
 
-+--------+-----------+
-| Name   | Power (W) |
-+--------+-----------+
-| TOP    |     0.008 |
-|   sort |     0.002 |
-+--------+-----------+
++------------------------+-----------+
+| Name                   | Power (W) |
++------------------------+-----------+
+| TOP                    |     0.012 |
+|   ROM                  |     0.002 |
+|     U0                 |     0.002 |
+|       inst_blk_mem_gen |     0.002 |
+|   Unroll               |     0.001 |
+|   sort                 |     0.003 |
++------------------------+-----------+
 
 

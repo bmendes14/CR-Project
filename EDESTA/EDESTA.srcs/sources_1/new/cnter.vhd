@@ -21,7 +21,7 @@ signal Res, next_Res : integer range 0 to 8;
 signal max_n_of_ones, next_max_n_of_ones,next_cnt: integer range 0 to 16;
 signal cnt : integer range 0 to 15;
 type in_data is array (16 - 1 downto 0) of std_logic_vector(8 - 1 downto 0);
---signal MyAr, N_MyAr: in_data; -- signals can be used here instead of variables
+signal MyAr, N_MyAr: in_data; -- signals can be used here instead of variables
 signal counter1, N_counter: natural range 0 to 2 * 4 - 1 := 0;
 signal dout : std_logic_vector(127 downto 0);
 
@@ -42,7 +42,7 @@ signal CurrentMax, NextCurrentMax, CurrentOne, NextCurrentOne : integer range 0 
 type in_data2 is array (16 - 1 downto 0) of std_logic_vector(12 - 1 downto 0);
 signal order1,n_order1: in_data2;
 
-constant MyAr : in_data := ("00001111","00111100","00010011","11010100","00001010","10000111","11110010","00011001","11101000","10010101","10111011","00011000","10100100","01001001","11010011","00010101");
+--constant MyAr : in_data := ("00001111","00111100","00010011","11010100","00001010","10000111","11110010","00011001","11101000","10010101","10111011","00011000","10100100","01001001","11010011","00010101");
 --("11111111","00111100","00010011","11010100","00001010","10000111","11110010","00011001","11101000","10010101","10111011","00011000","10100100","01001001","11010011","00010101");
 
 --00001111
@@ -65,7 +65,7 @@ begin
                 order1 <= (others => (others =>'0')); 
             else C_S <= N_S;
                 index <= next_index; -- índice do vetor
---                MyAr <= N_MyAr;
+                MyAr <= N_MyAr;
                 Res <= next_Res; -- resultado
                 Res <= next_Res; -- resultado
                 
@@ -86,7 +86,7 @@ begin
 
     process (C_S, dataIN, index, Res) -- processo combinatório
     begin
---        N_MyAr <= MyAr;
+        N_MyAr <= MyAr;
         N_S <= C_S;
         next_index <= index;
         next_max_n_of_ones <= max_n_of_ones; 
@@ -109,8 +109,37 @@ begin
                 --for i in 7 downto 0 loop 
 				  
         when counter =>
-                if bitNum < 7 then
-                    if MyAr(PalavraNum)(bitNum) = '1' and MyAr(PalavraNum)(bitNum+1)='1' then
+--                if bitNum < 7 then
+--                    if MyAr(PalavraNum)(bitNum) = '1' and MyAr(PalavraNum)(bitNum+1)='1' then
+--                        NextCurrentOne <= CurrentOne +1 ;
+--                        if bitNum =6 then
+--                            NextCurrentMax <= CurrentOne +1;
+--                        end if;
+--                    else
+--                        if CurrentOne > CurrentMax then
+--                           NextCurrentMax <= CurrentOne; 
+--                        end if;
+--                        NextCurrentOne <= 0;
+--                    end if;
+--                    bitNum_next <= bitNum +1;
+--                else
+--                    bitNum_next <= 0;
+--                    NextCurrentMax <=0;
+--                    NextCurrentOne <= 0;
+--                    n_order1(PalavraNum) <=std_logic_vector(to_unsigned(CurrentMax,4)) & MyAr(PalavraNum) ; --(15 downto 8 => '0')
+--                    PalavraNum_Next <= PalavraNum +1;
+--                end if;
+                
+--                if PalavraNum = 16 then
+--                    if (even_odd_switcher = '0') then
+--                        N_S <= even; -- selecting even or odd lines
+--                    else
+--                        N_S <= odd;
+--                    end if;
+--                end if;
+    
+                  if bitNum < 7 then
+                    if din(8*PalavraNum+bitNum) = '1' and din(8*PalavraNum+bitNum+1)='1' then
                         NextCurrentOne <= CurrentOne +1 ;
                         if bitNum =6 then
                             NextCurrentMax <= CurrentOne +1;
@@ -126,7 +155,7 @@ begin
                     bitNum_next <= 0;
                     NextCurrentMax <=0;
                     NextCurrentOne <= 0;
-                    n_order1(PalavraNum) <=std_logic_vector(to_unsigned(CurrentMax,4)) & MyAr(PalavraNum) ; --(15 downto 8 => '0')
+                    n_order1(PalavraNum) <=std_logic_vector(to_unsigned(CurrentMax,4)) & din(8*PalavraNum+7 downto 8*PalavraNum ); --(15 downto 8 => '0')
                     PalavraNum_Next <= PalavraNum +1;
                 end if;
                 
@@ -138,26 +167,7 @@ begin
                     end if;
 --                    N_S <= sort;
                 end if;
---                  if bitNum < 8 then
---                    if MyAr(PalavraNum)(bitNum) ='1' then
---                        NextCurrentOne <= CurrentOne +1 ;
---                    else
---                        if CurrentOne > CurrentMax then
---                            NextCurrentMax <= CurrentOne; 
---                            NextCurrentOne<=0; 
---                        end if;
---                        NextCurrentOne <= 0;
---                    end if;
---                    bitNum_next <= bitNum +1;
---                  else
---                        bitNum_next <= 0;
---                        NextCurrentMax <=0;
---                        n_order1(PalavraNum) <=(15 downto 4 => '0') & std_logic_vector(to_unsigned(CurrentMax,4)) ; --(15 downto 8 => '0')
---                        PalavraNum_Next <= PalavraNum +1;
---                  end if;
---                  if PalavraNum > 15 then
---                        N_S <= final_state;
---                  end if;
+                 
                 
                       
 --        when sort => 
